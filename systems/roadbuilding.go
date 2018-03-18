@@ -8,8 +8,8 @@ import (
 	"engo.io/ecs"
 	"engo.io/engo"
 	"engo.io/engo/common"
-	"github.com/EngoEngine/TrafficManager/systems/ui"
-	"github.com/luxengine/math"
+	"github.com/engoengine/math"
+	"github.com/evanlib/TrafficManager/systems/ui"
 )
 
 const (
@@ -283,7 +283,7 @@ func (r *RoadBuildingSystem) Update(dt float32) {
 		if hoveredId >= 0 {
 			target = *r.cities[hoveredId].SpaceComponent
 		} else {
-			target = common.SpaceComponent{Position: engo.Point{r.mouseTracker.MouseX, r.mouseTracker.MouseY}}
+			target = common.SpaceComponent{Position: engo.Point{X: r.mouseTracker.MouseX, Y: r.mouseTracker.MouseY}}
 		}
 
 		if r.roadHint.BasicEntity.ID() == 0 {
@@ -299,8 +299,8 @@ func (r *RoadBuildingSystem) Update(dt float32) {
 
 		ab1 := target.AABB()
 		ab2 := r.selectedEntity.SpaceComponent.AABB()
-		centerA := engo.Point{(ab1.Max.X-ab1.Min.X)/2 + ab1.Min.X, (ab1.Max.Y-ab1.Min.Y)/2 + ab1.Min.Y}
-		centerB := engo.Point{(ab2.Max.X-ab2.Min.X)/2 + ab2.Min.X, (ab2.Max.Y-ab2.Min.Y)/2 + ab2.Min.Y}
+		centerA := engo.Point{X: (ab1.Max.X-ab1.Min.X)/2 + ab1.Min.X, Y: (ab1.Max.Y-ab1.Min.Y)/2 + ab1.Min.Y}
+		centerB := engo.Point{X: (ab2.Max.X-ab2.Min.X)/2 + ab2.Min.X, Y: (ab2.Max.Y-ab2.Min.Y)/2 + ab2.Min.Y}
 
 		roadWidth := laneWidth
 
@@ -346,8 +346,8 @@ func (r *RoadBuildingSystem) Update(dt float32) {
 
 		r.roadHint.SpaceComponent = common.SpaceComponent{
 			Position: engo.Point{
-				centerB.X - roadWidth/2,
-				centerB.Y - roadWidth/2,
+				X: centerB.X - roadWidth/2,
+				Y: centerB.Y - roadWidth/2,
 			},
 			Width:    roadLength,
 			Height:   roadWidth * laneCount,
@@ -380,7 +380,7 @@ func (r *RoadBuildingSystem) Update(dt float32) {
 		r.roadCostHint.SetText(fmt.Sprintf("%s ($ %.0f)", action, math.Floor(cost/100)*100))
 
 		r.roadCostHint.SpaceComponent = common.SpaceComponent{
-			Position: engo.Point{engo.Input.Mouse.X, engo.Input.Mouse.Y + 20},
+			Position: engo.Point{X: engo.Input.Mouse.X, Y: engo.Input.Mouse.Y + 20},
 			Width:    r.roadCostHint.Drawable.Width() * r.roadCostHint.RenderComponent.Scale.X,
 			Height:   r.roadCostHint.Drawable.Height() * r.roadCostHint.RenderComponent.Scale.Y,
 		}

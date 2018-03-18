@@ -7,7 +7,7 @@ import (
 	"engo.io/ecs"
 	"engo.io/engo"
 	"engo.io/engo/common"
-	"github.com/EngoEngine/TrafficManager/systems/ui"
+	"github.com/evanlib/TrafficManager/systems/ui"
 )
 
 var (
@@ -49,7 +49,7 @@ func (h *HUDSystem) New(w *ecs.World) {
 
 	h.hudFrame = ui.Graphic{BasicEntity: ecs.NewBasic()}
 	h.hudFrame.SpaceComponent = common.SpaceComponent{
-		Position: engo.Point{0, engo.CanvasHeight() - hudHeight},
+		Position: engo.Point{X: 0, Y: engo.CanvasHeight() - hudHeight},
 		Width:    engo.CanvasWidth(),
 		Height:   hudHeight,
 	}
@@ -80,7 +80,7 @@ func (h *HUDSystem) New(w *ecs.World) {
 
 	h.hudCityTitle = ui.Label{BasicEntity: ecs.NewBasic()}
 	h.hudCityTitle.SpaceComponent = common.SpaceComponent{
-		Position: engo.Point{hudCityTitlePadding, engo.CanvasHeight() - hudHeight},
+		Position: engo.Point{X: hudCityTitlePadding, Y: engo.CanvasHeight() - hudHeight},
 		Width:    engo.CanvasWidth(),
 		Height:   hudHeight,
 	}

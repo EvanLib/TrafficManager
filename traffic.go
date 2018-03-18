@@ -6,7 +6,7 @@ import (
 	"engo.io/ecs"
 	"engo.io/engo"
 	"engo.io/engo/common"
-	"github.com/EngoEngine/TrafficManager/systems"
+	"github.com/evanlib/TrafficManager/systems"
 )
 
 const (
@@ -25,7 +25,6 @@ func (*myScene) Type() string { return "myGame" }
 
 // Preload is called before loading any assets from the disk, to allow you to register / queue them
 func (*myScene) Preload() {
-	common.AudioSystemPreload()
 	err := engo.Files.Load(
 		"textures/city.png",
 		"fonts/Roboto-Regular.ttf",
@@ -42,15 +41,16 @@ func (*myScene) Preload() {
 }
 
 // Setup is called before the main loop starts. It allows you to add entities and systems to your Scene.
-func (*myScene) Setup(world *ecs.World) {
+func (*myScene) Setup(u engo.Updater) {
+	world, _ := u.(*ecs.World)
 	common.SetBackground(color.RGBA{0xf0, 0xf0, 0xf0, 0xff})
 
 	world.AddSystem(&common.RenderSystem{})
 	world.AddSystem(&common.MouseSystem{})
 	world.AddSystem(&common.AudioSystem{})
 	world.AddSystem(common.NewKeyboardScroller(KeyboardScrollSpeed, engo.DefaultHorizontalAxis, engo.DefaultVerticalAxis))
-	world.AddSystem(&common.EdgeScroller{EdgeScrollSpeed, EdgeWidth})
-	world.AddSystem(&common.MouseZoomer{ZoomSpeed})
+	world.AddSystem(&common.EdgeScroller{ScrollSpeed: EdgeScrollSpeed, EdgeMargin: EdgeWidth})
+	world.AddSystem(&common.MouseZoomer{ZoomSpeed: ZoomSpeed})
 
 	world.AddSystem(&systems.RoadBuildingSystem{})
 	world.AddSystem(&systems.HUDSystem{})
@@ -85,7 +85,7 @@ func (*myScene) Setup(world *ecs.World) {
 		}
 	}
 
-	common.CameraBounds = engo.AABB{min, max}
+	common.CameraBounds = engo.AABB{Min: min, Max: max}
 	cities := make([]*systems.City, len(lvl.Level.Cities))
 
 	for i, city := range lvl.Level.Cities {
@@ -106,7 +106,7 @@ func (*myScene) Setup(world *ecs.World) {
 
 	bg := Background{BasicEntity: ecs.BasicEntity{}}
 	bg.SpaceComponent = common.SpaceComponent{
-		Position: engo.Point{min.X - WorldPadding, min.Y - WorldPadding},
+		Position: engo.Point{X: min.X - WorldPadding, Y: min.Y - WorldPadding},
 		Width:    max.X - min.X + systems.CityWidth + 2*WorldPadding,
 		Height:   max.Y - min.Y + systems.CityHeight + 2*WorldPadding,
 	}

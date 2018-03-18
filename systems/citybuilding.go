@@ -93,7 +93,7 @@ func BuildCity(x, y float32, cat CityCategory, w *ecs.World) *City {
 		BasicEntity:   ecs.NewBasic(),
 		CityComponent: CityComponent{Category: cat},
 		SpaceComponent: common.SpaceComponent{
-			Position: engo.Point{x, y},
+			Position: engo.Point{X: x, Y: y},
 			Width:    CityWidth,
 			Height:   CityHeight,
 		},

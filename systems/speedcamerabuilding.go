@@ -8,8 +8,8 @@ import (
 	"engo.io/ecs"
 	"engo.io/engo"
 	"engo.io/engo/common"
-	"github.com/EngoEngine/TrafficManager/systems/ui"
-	"github.com/luxengine/math"
+	"github.com/engoengine/math"
+	"github.com/evanlib/TrafficManager/systems/ui"
 )
 
 var (
@@ -94,7 +94,7 @@ func (builder *SpeedCameraBuildingSystem) Update(dt float32) {
 
 			builder.camHint = SpeedCheckpoint{BasicEntity: ecs.NewBasic()}
 			builder.camHint.SpaceComponent = common.SpaceComponent{
-				Position: engo.Point{builder.mouseTracker.MouseComponent.MouseX, builder.mouseTracker.MouseComponent.MouseY},
+				Position: engo.Point{X: builder.mouseTracker.MouseComponent.MouseX, Y: builder.mouseTracker.MouseComponent.MouseY},
 				Width:    30,
 				Height:   8,
 			}
@@ -107,12 +107,12 @@ func (builder *SpeedCameraBuildingSystem) Update(dt float32) {
 			builder.camHint.icon = IconComponent{BasicEntity: ecs.NewBasic()}
 			builder.camHint.icon.RenderComponent = common.RenderComponent{
 				Drawable: builder.camHintIcon,
-				Scale:    engo.Point{0.25, 0.25},
+				Scale:    engo.Point{X: 0.25, Y: 0.25},
 			}
 			builder.camHint.icon.SpaceComponent = common.SpaceComponent{
 				Position: engo.Point{
-					builder.camHint.SpaceComponent.Position.X + builder.camHint.Width - builder.camHint.icon.Drawable.Width(),
-					builder.camHint.SpaceComponent.Position.Y + builder.camHint.Height - builder.camHint.icon.Drawable.Height(),
+					X: builder.camHint.SpaceComponent.Position.X + builder.camHint.Width - builder.camHint.icon.Drawable.Width(),
+					Y: builder.camHint.SpaceComponent.Position.Y + builder.camHint.Height - builder.camHint.icon.Drawable.Height(),
 				},
 				Width:  builder.camHint.icon.Drawable.Width(),
 				Height: builder.camHint.icon.Drawable.Height(),
@@ -139,10 +139,10 @@ func (builder *SpeedCameraBuildingSystem) Update(dt float32) {
 	}
 
 	if builder.building {
-		builder.camHint.SpaceComponent.Position = engo.Point{builder.mouseTracker.MouseX, builder.mouseTracker.MouseY}
+		builder.camHint.SpaceComponent.Position = engo.Point{X: builder.mouseTracker.MouseX, Y: builder.mouseTracker.MouseY}
 		builder.camHint.icon.SpaceComponent.Position = engo.Point{
-			builder.camHint.SpaceComponent.Position.X + builder.camHint.Width - builder.camHint.icon.Drawable.Width()*builder.camHint.icon.Scale.X,
-			builder.camHint.SpaceComponent.Position.Y + builder.camHint.Height - builder.camHint.icon.Drawable.Height()*builder.camHint.icon.Scale.Y,
+			X: builder.camHint.SpaceComponent.Position.X + builder.camHint.Width - builder.camHint.icon.Drawable.Width()*builder.camHint.icon.Scale.X,
+			Y: builder.camHint.SpaceComponent.Position.Y + builder.camHint.Height - builder.camHint.icon.Drawable.Height()*builder.camHint.icon.Scale.Y,
 		}
 
 		roadIndex := -1
@@ -221,7 +221,7 @@ func (builder *SpeedCameraBuildingSystem) buildSpeedCamera() {
 	speedCam.icon.SpaceComponent = builder.camHint.icon.SpaceComponent
 	speedCam.icon.RenderComponent = common.RenderComponent{
 		Drawable: builder.camHintIcon,
-		Scale:    engo.Point{0.25, 0.25},
+		Scale:    engo.Point{X: 0.25, Y: 0.25},
 	}
 	speedCam.icon.RenderComponent.SetZIndex(roadZIndex - 0.01) // so below the road, above the speedCam background
 

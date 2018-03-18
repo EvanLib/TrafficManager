@@ -9,7 +9,7 @@ import (
 	"engo.io/ecs"
 	"engo.io/engo"
 	"engo.io/engo/common"
-	"github.com/luxengine/math"
+	"github.com/engoengine/math"
 )
 
 const (
@@ -330,23 +330,6 @@ func (c *CommuterSystem) commuterMove(dt float32) {
 				if commIndex > 0 {
 					if comm.DistanceTravelled > (lane.Commuters[commIndex-1].DistanceTravelled - lane.Commuters[commIndex-1].Width) {
 						// Crash!
-
-						crash := Crash{
-							BasicEntity: ecs.NewBasic(),
-							AudioComponent: common.AudioComponent{
-								File:       "sfx/crash.wav",
-								Repeat:     false,
-								Background: false,
-							},
-							SpaceComponent: lane.Commuters[commIndex-1].SpaceComponent,
-						}
-
-						for _, system := range c.world.Systems() {
-							switch sys := system.(type) {
-							case *common.AudioSystem:
-								sys.Add(&crash.BasicEntity, &crash.AudioComponent, &crash.SpaceComponent)
-							}
-						}
 
 						fmt.Println("Crash", comm.ID(), lane.Commuters[commIndex-1].BasicEntity.ID())
 
