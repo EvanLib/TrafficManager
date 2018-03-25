@@ -45,7 +45,7 @@ func (w *WaveSystem) Remove(basic ecs.BasicEntity) {
 }
 
 func (w *WaveSystem) New(*ecs.World) {
-	engo.Input.RegisterButton(dispatchButton, engo.Space)
+	engo.Input.RegisterButton(dispatchButton, engo.KeySpace)
 }
 
 func (w *WaveSystem) Update(dt float32) {

@@ -54,7 +54,7 @@ func (builder *SpeedCameraBuildingSystem) Remove(basic ecs.BasicEntity) {
 func (builder *SpeedCameraBuildingSystem) New(w *ecs.World) {
 	builder.world = w
 
-	engo.Input.RegisterButton("build-speedcam", engo.F2, engo.N)
+	engo.Input.RegisterButton("build-speedcam", engo.KeyF2, engo.KeyN)
 
 	builder.mouseTracker.BasicEntity = ecs.NewBasic()
 	builder.mouseTracker.MouseComponent = common.MouseComponent{Track: true}

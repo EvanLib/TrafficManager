@@ -12,7 +12,7 @@ type KeyboardZoomSystem struct{}
 func (*KeyboardZoomSystem) Remove(ecs.BasicEntity) {}
 
 func (*KeyboardZoomSystem) New(*ecs.World) {
-	engo.Input.RegisterAxis("zoom", engo.AxisKeyPair{Min: engo.NumSubtract, Max: engo.NumAdd}, engo.AxisKeyPair{Min: engo.Dash, Max: engo.Equals})
+	engo.Input.RegisterAxis("zoom", engo.AxisKeyPair{Min: engo.KeyNumSubtract, Max: engo.KeyNumAdd}, engo.AxisKeyPair{Min: engo.KeyDash, Max: engo.KeyEquals})
 }
 
 func (*KeyboardZoomSystem) Update(dt float32) {

@@ -50,10 +50,10 @@ func (t *TimeSystem) New(w *ecs.World) {
 	t.clock.Speed = SpeedOne
 
 	// Register buttons
-	engo.Input.RegisterButton(SpeedPauseButton, engo.Grave, engo.P)
-	engo.Input.RegisterButton(SpeedOneButton, engo.NumOne, engo.One)
-	engo.Input.RegisterButton(SpeedTwoButton, engo.NumTwo, engo.Two)
-	engo.Input.RegisterButton(SpeedThreeButton, engo.NumThree, engo.Three)
+	engo.Input.RegisterButton(SpeedPauseButton, engo.KeyGrave, engo.KeyP)
+	engo.Input.RegisterButton(SpeedOneButton, engo.KeyNumOne, engo.KeyOne)
+	engo.Input.RegisterButton(SpeedTwoButton, engo.KeyNumTwo, engo.KeyTwo)
+	engo.Input.RegisterButton(SpeedThreeButton, engo.KeyNumThree, engo.KeyThree)
 
 	// Load the preloaded font
 	fnt := &common.Font{

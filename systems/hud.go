@@ -112,6 +112,7 @@ func (h *HUDSystem) Update(dt float32) {
 	var cityHovered bool
 	for _, city := range h.cities {
 		if city.MouseComponent.Hovered {
+			fmt.Println("City hovered.")
 			cityHovered = true
 			h.hudCityTitle.SetText(fmt.Sprintf("City %q", city.CityComponent.Category))
 			break

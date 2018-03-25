@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
 
 	"engo.io/ecs"
@@ -10,7 +11,7 @@ import (
 )
 
 const (
-	KeyboardScrollSpeed = 400
+	KeyboardScrollSpeed = 4000
 	EdgeScrollSpeed     = KeyboardScrollSpeed
 	EdgeWidth           = 20
 	ZoomSpeed           = -0.125
@@ -25,6 +26,7 @@ func (*myScene) Type() string { return "myGame" }
 
 // Preload is called before loading any assets from the disk, to allow you to register / queue them
 func (*myScene) Preload() {
+	fmt.Println("This is a test...")
 	err := engo.Files.Load(
 		"textures/city.png",
 		"fonts/Roboto-Regular.ttf",
@@ -42,6 +44,7 @@ func (*myScene) Preload() {
 
 // Setup is called before the main loop starts. It allows you to add entities and systems to your Scene.
 func (*myScene) Setup(u engo.Updater) {
+
 	world, _ := u.(*ecs.World)
 	common.SetBackground(color.RGBA{0xf0, 0xf0, 0xf0, 0xff})
 
@@ -49,7 +52,7 @@ func (*myScene) Setup(u engo.Updater) {
 	world.AddSystem(&common.MouseSystem{})
 	world.AddSystem(&common.AudioSystem{})
 	world.AddSystem(common.NewKeyboardScroller(KeyboardScrollSpeed, engo.DefaultHorizontalAxis, engo.DefaultVerticalAxis))
-	world.AddSystem(&common.EdgeScroller{ScrollSpeed: EdgeScrollSpeed, EdgeMargin: EdgeWidth})
+	// world.AddSystem(&common.EdgeScroller{ScrollSpeed: EdgeScrollSpeed, EdgeMargin: EdgeWidth})
 	world.AddSystem(&common.MouseZoomer{ZoomSpeed: ZoomSpeed})
 
 	world.AddSystem(&systems.RoadBuildingSystem{})
@@ -137,7 +140,7 @@ type Background struct {
 
 func main() {
 	opts := engo.RunOptions{
-		Title:          "TrafficDefense",
+		Title:          "Traffic Simulation",
 		Width:          800,
 		Height:         800,
 		StandardInputs: true,
